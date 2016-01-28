@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>firebase accounts tests</title>
+    <meta name="viewport" content="width=device-width">
+    <link rel='stylesheet' type='text/css' href='messages/messages.css' />
+    <link rel='stylesheet' type='text/css' href='css/bkgd-pastels.css' />
+    <link rel='stylesheet' type='text/css' href='app.css' />
+    <style>
+    </style>
+    <script type="text/javascript">
+    //
+    function onLoad() {
+        //alert("body loaded.");
+        onDeviceReady();
+    }
+    </script>
+</head>
+<body onload="onLoad()">
+<div id=message class="appMsgBox message success hidden" >
+This is a message
+</div>
+<div id=status>
+<span id=status-user  class=floatL>logged out</span>
+<span id=status-cloud class=floatR>not connected</span>
+</div><br />
+<h3>firebase <tt>accounts</tt> tests</h3>
+<div id=form class="formBox pastel-green">
+<b>signup</b><br>
+    <input type=text     id=name      placeholder=name /><br>
+    <input type=email    id=email     placeholder="email (required)" /><br>
+    <input type=text     id=password  placeholder="password (required)" /><br>
+    <input type=phone    id=phone     placeholder=phone /><br>
+    <input type=checkbox id=uuid      checked /> May I get a copy of your device ID?<br>
+    <input type=checkbox id=makemodel checked /> Make, Model?<br>
+    <button id=button-signup >Sign Up</button>
+</div>
+<div id=form class="formBox pastel-red">
+<b>login</b><br>
+    <input type=email    id=login-email     placeholder="email (required)" /><br>
+    <input type=text     id=login-password  placeholder="password (required)" /><br>
+    <button id=button-login >Login</button>
+</div>
+<div id=form class="formBox pastel-blue">
+<b>logout</b><br>
+    <button id=button-logout >Logout</button>
+</div>
+<div id=form class="formBox pastel-gold">
+<b>reset password</b><br>
+    <input type=email    id=reset-email     placeholder="email (required)" /><br>
+    <button id=button-reset-password >Reset Password</button>
+</div>
+
+<div id=form class="formBox pastel-purple">
+<b>Get/Set Account</b><br>
+    <input type=text     id=gs-name      placeholder=name /><br>
+    <input type=email    id=gs-email     placeholder=email /><br>
+    <input type=phone    id=gs-phone     placeholder=phone /><br>
+    <button id=button-get-account >Get Account</button>
+    <button id=button-set-account >Set Account</button>
+</div>
+
+<div id=content>content</div>
+<pre id=info>pre</pre>
+<script type="text/javascript" charset="utf-8" src="js/zepto-1.1.6.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/fastclick.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/firebase-2.2.1.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/md5.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/sha256.js"></script>
+<!-- my code is below this line -->
+<script type="text/javascript" charset="utf-8" src="js/simple_modify.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/basicDateFunctions.js"></script>
+<script type="text/javascript" charset="utf-8" src="messages/messages.js"></script>
+<script type="text/javascript" charset="utf-8" src="buttons.js"></script>
+<script type="text/javascript" charset="utf-8" src="events.js"></script>
+<script type="text/javascript" charset="utf-8" src="app.js"></script>
+<!-- Fixing below here -->
+<script type="text/javascript" charset="utf-8" src="mbaas/firebase-accounts.js"></script>
+<script type="text/javascript" charset="utf-8" src="mbaas/firebase-specific.js"></script>
+<script type="text/javascript" charset="utf-8" src="mbaas/firebase-rw.js"></script>
+<script type="text/javascript" charset="utf-8" src="signup.js"></script>
+<script type="text/javascript" charset="utf-8" src="index.js"></script>
+<script type="text/javascript" charset="utf-8" >
+</script>
+</body>
+</html>

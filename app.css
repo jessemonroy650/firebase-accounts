@@ -1,0 +1,8 @@
+/* App css - Date:2015-12-16 */ 
+body {margin:0px;font-size:large;}
+#status {margin:0.25em;}
+#content {margin:1em;}
+.floatL {float:left;}
+.floatR {float:right;}
+.appMsgBox {text-align:center;padding-top:0.5em;}
+.formBox {margin:0.2em;padding:0.2em;}

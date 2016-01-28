@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Customer - Munibox</title>
+    <meta name="viewport" content="width=device-width, user-scalable=yes">
+    <link rel='stylesheet' type='text/css' href='messages.css'>
+    <style>
+    input[type=text] {margin:0.2em;font-size:large;}
+    </style>
+    <script src='js/zepto-1.1.6.js'></script>
+    <script src='js/basicStringFunctions.js'></script>
+    <script src='js/basicDateFunctions.js'></script>
+    <script src='messages.js'></script>
+  </head>
+  <body>
+    <center>
+    <div id=header>
+    </div>
+    <p>
+    <div id=message class="message success hidden">
+This is a message
+    </div>
+        <div class=label_font>
+        Customer
+        </div>
+        <div style=background-color:hsl(240,100%,90%);>
+        <input id=firstname type=text placeholder="First name"><br>
+        <input id=lastname type=text placeholder="Last name"><br>
+        <input id=cellphone type=text placeholder="Cellphone"><br>
+        <input id=email type=text placeholder="Email"><br>
+        </div>
+
+        <button id=customer_data class="button button-pill button-royal">submit</button>
+    </center>
+    <div id='messagesDiv'>
+        <button id=test>test</button> Toggle 'warning' base message.<br>
+        <button id=test2>test2</button> Toggle 'warning' with custom message.<br>
+        <button id=test3>test3</button> Toggle 'error' custom message with 4 second timeout.<br>
+    </div>
+
+    <script>
+    $('#test').click(function(e){
+        // d = (new Date()).getTime(); // myDate.getEpoch();
+        d = myDate.getEpoch();
+        console.log("test function - Toggle:" + d);
+        myMessage.Toggle('message','warning');
+        //console.log(myDate.getToday());
+    });
+    $('#test2').click(function(e){
+        d = myDate.getEpoch();
+        console.log("test function - Toggle+string:" + d);
+        myMessage.Toggle('message','warning', 'yippy ki yeah');
+        //console.log(myDate.getToday());
+    });
+
+    $('#test3').click(function(e){
+        d = myDate.getEpoch();
+        console.log("test function - myMessage:" + d);
+        myMessage.myMessage('message','error','This is yet another message.', 4000);
+        //console.log(myDate.getToday());
+    });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,9 @@
+/*
+    pastel background colors
+    dDate: 2015-12-16
+*/
+.pastel-green  {background-color:hsl(135,25%,75%);}
+.pastel-red    {background-color:hsl(0,25%,75%);}
+.pastel-blue   {background-color:hsl(225,25%,75%);}
+.pastel-gold   {background-color:hsl(45,25%,75%);}
+.pastel-purple {background-color:hsl(270,25%,75%);}
