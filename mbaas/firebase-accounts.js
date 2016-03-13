@@ -1,6 +1,6 @@
 /*
-	Firebase user accounts
-	Date: 2015-11-28
+    Firebase user accounts
+    Date: 2015-11-28
 
     NOTE: The firebase specific routines must be fired before any of the
     subroutines in this module. BUT THIS MODULE (FILE) MUST LOAD FIRST.
@@ -21,12 +21,12 @@ var sErrorMsgLostPass = {'INVALID_USER': "The specified user account does not ex
 var account = {
 
 /* Moved to signup.js to stand-alone on 2015-12-07
-	//
-	create : function (obj, success, error) {
-	},
+    //
+    create : function (obj, success, error) {
+    },
 */
-	//
-	login : function(obj, success, error) {
+    //
+    login : function(obj, success, error) {
         credentials = {"email": obj.email, "password": obj.password};
 
         // Log me in - https://www.firebase.com/docs/web/api/firebase/authwithpassword.html
@@ -44,20 +44,20 @@ var account = {
                 console.error(sErrorMsgLogin[err.code]);
             }
         });
-	},
+    },
 
-	// logout is confirmed via an event callback. see: firebase-specific.js
-	logout : function () {
+    // logout is confirmed via an event callback. see: firebase-specific.js
+    logout : function () {
         gUserbaseRef.unauth();
-	},
+    },
 
-	// https://www.firebase.com/docs/web/api/firebase/changeemail.html
-	changeEmail : function () {
-	},
+    // https://www.firebase.com/docs/web/api/firebase/changeemail.html
+    changeEmail : function () {
+    },
 
-	// https://www.firebase.com/docs/web/api/firebase/changepassword.html
-	changePassword : function () {
-	},
+    // https://www.firebase.com/docs/web/api/firebase/changepassword.html
+    changePassword : function () {
+    },
 
     // https://www.firebase.com/docs/web/api/query/once.html
     getAccount : function (baseRef, success, error) {
@@ -72,8 +72,8 @@ var account = {
         account.updateData(baseRef, data, success, error);
     },
 
-	// https://www.firebase.com/docs/web/api/firebase/resetpassword.html
-	resetPassword : function(obj, success, error) {
+    // https://www.firebase.com/docs/web/api/firebase/resetpassword.html
+    resetPassword : function(obj, success, error) {
         var creds = {'email':obj.email}
         gMybaseRef.resetPassword(creds, function(err) {
             if (err == null){
@@ -85,5 +85,5 @@ var account = {
                 console.log(sErrorMsgLostPass[err.code]);
             }        
         });
-	}
+    }
 };

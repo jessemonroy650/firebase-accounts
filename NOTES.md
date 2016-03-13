@@ -11,3 +11,6 @@ Date: 2016-01-22
 - `mbass/xxx-events.js` - handles 'communication events' coming from the server.
 - `mbass/xxx-rw.js` - directly talks to database to do read/write/update
 - `mbaas/xxx-specific.js` - subscribes to server 'communication events'
+
+Web Sockets tutorial with simple Python server
+http://yz.mit.edu/wp/web-sockets-tutorial-with-simple-python-server/

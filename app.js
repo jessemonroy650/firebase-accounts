@@ -1,6 +1,6 @@
 /*
-	Main App
-	Date: 2015-11-29
+    Main App
+    Date: 2015-11-29
 */
 var gUserFbId       = ""; // This is the UID assigned by firebase.
                           // It is updated after every Auth event.
