@@ -2,18 +2,7 @@
     Firebase user accounts
     Date: 2015-11-28
 
-    NOTE: The firebase specific routines must be fired before any of the
-    subroutines in this module. BUT THIS MODULE (FILE) MUST LOAD FIRST.
-
 */
-var gCredentials    = {"email": undefined, "password": undefined};
-var gAppURL         = "https://user-login.firebaseio.com/"
-var gUsersURL       = "https://user-login.firebaseio.com/users";
-var gUsersURLCrypt  = "https://user-login.firebaseio.com/users-crypt";
-var gMybaseRef      = new Firebase(gAppURL);
-var gUserbaseRef    = new Firebase(gUsersURL);
-var gUserCryptRef   = new Firebase(gUsersURLCrypt);
-
 var sErrorMsgCreate   = {'EMAIL_TAKEN': "That email is in use on this system.", 'INVALID_EMAIL': "You gave me an invalid email address."};
 var sErrorMsgLogin    = {'LOGIN_FAILED': "Your login did not work. Your email or password was wrong. I don't know which is wrong."};
 var sErrorMsgLostPass = {'INVALID_USER': "The specified user account does not exist."};

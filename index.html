@@ -7,17 +7,8 @@
     <link rel='stylesheet' type='text/css' href='messages/messages.css' />
     <link rel='stylesheet' type='text/css' href='css/bkgd-pastels.css' />
     <link rel='stylesheet' type='text/css' href='app.css' />
-    <style>
-    </style>
-    <script type="text/javascript">
-    //
-    function onLoad() {
-        //alert("body loaded.");
-        onDeviceReady();
-    }
-    </script>
 </head>
-<body onload="onLoad()">
+<body>
 <div id=message class="appMsgBox message success hidden" >
 This is a message
 </div>
@@ -63,6 +54,8 @@ This is a message
 
 <div id=content>content</div>
 <pre id=info>pre</pre>
+
+<div id=exitApp></div> <!-- `exitApp` does nothing, except stub a handler -->
 <script type="text/javascript" charset="utf-8" src="js/zepto-1.1.6.js"></script>
 <script type="text/javascript" charset="utf-8" src="js/fastclick.js"></script>
 <script type="text/javascript" charset="utf-8" src="js/firebase-2.2.1.js"></script>
@@ -72,16 +65,16 @@ This is a message
 <script type="text/javascript" charset="utf-8" src="js/simple_modify.js"></script>
 <script type="text/javascript" charset="utf-8" src="js/basicDateFunctions.js"></script>
 <script type="text/javascript" charset="utf-8" src="messages/messages.js"></script>
-<script type="text/javascript" charset="utf-8" src="buttons.js"></script>
-<script type="text/javascript" charset="utf-8" src="events.js"></script>
-<script type="text/javascript" charset="utf-8" src="app.js"></script>
 <!-- Fixing below here -->
 <script type="text/javascript" charset="utf-8" src="mbaas/firebase-accounts.js"></script>
-<script type="text/javascript" charset="utf-8" src="mbaas/firebase-specific.js"></script>
 <script type="text/javascript" charset="utf-8" src="mbaas/firebase-rw.js"></script>
-<script type="text/javascript" charset="utf-8" src="signup.js"></script>
+<script type="text/javascript" charset="utf-8" src="mbaas/firebase-specific.js"></script>
+<script type="text/javascript" charset="utf-8" src="mbaas/firebase-signup.js"></script>
+<script type="text/javascript" charset="utf-8" src="consts.js"></script>
+<script type="text/javascript" charset="utf-8" src="events.js"></script>
+<script type="text/javascript" charset="utf-8" src="app.js"></script>
+<script type="text/javascript" charset="utf-8" src="buttons.js"></script>
+<!-- `deviceready` and `DOMContentLoaded` is in this module -->
 <script type="text/javascript" charset="utf-8" src="index.js"></script>
-<script type="text/javascript" charset="utf-8" >
-</script>
 </body>
 </html>

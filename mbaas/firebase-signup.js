@@ -4,28 +4,26 @@
  * Date: 2015-12-07
  * SEE: More documentation at Bottom.
 */
-var gWhichCrypt = 'md5';
-
-var signup = function () {
+var signup = function (creds, userData, deviceData) {
     var  mine = {};
+    var gUserDataRef    = null;    // Only used with signup.js
+    var gUserDeviceRef  = null;    // Only used with signup.js
     /*
      *
      */
     mine.startAccount = function (credentials, userobj, deviceobj, success, error) {
         console.log("account.create:");
-        var cryptedEmail = "";
-
-        cryptedEmail = (gWhichCrypt == 'sha256') ? 
-                           Sha256.hash(credentials.email) :
-                           md5(credentials.email);
+        var cryptedEmailAddr = (cryptGlue.which == 'sha256') ? 
+                                   Sha256.hash(credentials.email) :
+                                   md5(credentials.email);
 
         // detectCollision()
-        doesAccountExists(cryptedEmail, gUsersURLCrypt, function (exists) {
+        cryptGlue.doesAccountExists(cryptedEmailAddr, gUsersURLCrypt, function (exists) {
             if (! exists) {
                 mine.createAccount(credentials, userobj, deviceobj,
                     function (data) {
-                        // assume we can create cryptedEmail record.
-                        createAccountCrypt(cryptedEmail, gUsersURLCrypt,
+                        // assume we can create cryptedEmailAddr record.
+                        cryptGlue.createAccount(cryptedEmailAddr, gUsersURLCrypt,
                             function() { success(data); },
                             function(e) { error("Could not create crypt" + e);
                             })
@@ -77,40 +75,15 @@ var signup = function () {
      *
      */
     console.log("signup");
-    var okGetUU = $('#uuid').is(":checked");
-    var okGetMM = $('#makemodel').is(":checked");
-
-    gUserData.email     = $('#email').val();
-    gUserData.password  = $('#password').val();
-    gUserData.name      = $('#name').val();
-    gUserData.phone     = $('#phone').val();
-    gDeviceData.uuid      = false;
-    gDeviceData.makemodel = false;
-    gDeviceData.cordova   = false;
-    gDeviceData.platform  = false;
-    // get device info only if we are on the device.
-    if (gTheDevice != undefined) {
-        gDeviceData.uuid      = (okGetUU) ? device.uuid : false;
-        gDeviceData.makemodel = (okGetMM) ? device.model : false;
-        gDeviceData.cordova   = device.cordova;
-        gDeviceData.platform  = device.platform + ";" + device.version;
-    } else {
-        gDeviceData.uuid      = (okGetUU) ? 'fake.uuid' : false;
-        gDeviceData.makemodel = (okGetMM) ? 'fake.model' : false;
-        gDeviceData.cordova   = "Cordova fake-5.2.0";
-        gDeviceData.platform  = "LG Fake ; Android 5.1.0";
-    }
-    credentials = {"email": gUserData.email, "password": gUserData.password};
-    simple_remove(gUserData, ['password']);
-    // console.log("gUserData:", gUserData); console.log("credentials:", credentials);
-    mine.startAccount(credentials, 
-            gUserData,
-            gDeviceData,
+    // console.log("userData:", userData); console.log("creds:", creds);
+    mine.startAccount(creds, 
+            userData,
+            deviceData,
             function (data) { // success
-                myMessage.myMessage('message','success', "Account created", 10000);
+                myMessage.myMessage('message','success', "Account created", gTimeSuccessNewAccount);
             },
             function (error) { // error
-                myMessage.myMessage('message','error', "Error creating account:" + error, 12000);
+                myMessage.myMessage('message','error', "Error creating account:" + error, gTimeErrorNewAccount);
             });
     //
     // clear & reset out fields
@@ -126,41 +99,44 @@ var signup = function () {
 };
 
 
-// Firebase: Detecting if data exists. This snippet detects if a user ID is already taken
-// https://gist.github.com/anantn/4323949
-// This call is asynchronous.
-var doesAccountExists = function (userEmail, usersURL, callback, errCallback) {
-    var usersRef = new Firebase(usersURL);
-    usersRef.child(userEmail).once('value', function(snapshot) {
-        var exists = (snapshot.val() !== null);
-        callback(exists);
+
+
+var cryptGlue = {
+    which : 'md5',
+    // 'md5' slightly faster lookup, less secure
+    // 'sha265' slightly longer lookup, more secure
+    initialize : function (which) {
+        if (which) { cryptGlue.which = which; }
     },
-    function (err) {
-        errCallback(err);
-    });
+    createAccount : function (userEmail, usersURL, callback, errCallback) {
+        var usersRef = new Firebase(usersURL);
+        uref = usersRef.child(userEmail);
+        account.updateData(uref, {'active':true}, callback, errCallback);
+    },
+    // Firebase: Detecting if data exists. This snippet detects if a user ID is already taken
+    // https://gist.github.com/anantn/4323949
+    // This call is asynchronous.
+    doesAccountExists : function (userEmail, usersURL, callback, errCallback) {
+        var usersRef = new Firebase(usersURL);
+        usersRef.child(userEmail).once('value', function(snapshot) {
+            var exists = (snapshot.val() !== null);
+            callback(exists);
+        },
+        function (err) {
+            errCallback(err);
+        });
 
+    }
 };
-
-var createAccountCrypt = function (userEmail, usersURL, callback, errCallback) {
-    var usersRef = new Firebase(usersURL);
-    uref = usersRef.child(userEmail);
-    account.updateData(uref, {'active':true}, callback, errCallback);
-}
-
-// 'md5' slightly faster lookup, less secure
-// 'sha265' slightly longer lookup, more secure
-var cryptInitialize = function (which) {
-    gWhichCrypt = which;
-} ;
 
 /*
     There are six (6) routines in the file, in order of use.
+    0) cryptGlue.initialize() - initializes which crypt method is used
     1) signup() - The main routine and entrance into this module.
     2) mine.startAccount() - start the account creation process
-    3) doesAccountExists() - Checks to see if the user already has an account
+    3) cryptGlue.doesAccountExists() - Checks to see if the user already has an account
     4) mine.createAccount() - actually creates the account, writes user and device data
-    5) createAccountCrypt() - Creates an account with a crypted path
-    6) cryptInitialize() - initializes with crypt method is used
+    5) cryptGlue.createAccount() - Creates an account with a crypted path
 */
 
 

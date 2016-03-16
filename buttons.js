@@ -9,7 +9,7 @@ $('#button-login').click(function() {
     } else {
         console.log("No email/password - email given:" + $('#login-email').val());
         // give user feedback, we require email and password
-        myMessage.myMessage('message','error', "'email' and 'password' required.", 6000);
+        myMessage.myMessage('message','error', "'email' and 'password' required.", gTimeErrorGeneric);
     }
 });
 
@@ -26,7 +26,7 @@ $('#button-reset-password').click(function() {
     } else {
         console.log("No email/password - email given:" + $('#reset-email').val());
         // give user feedback, we require email and password
-        myMessage.myMessage('message','error', "'email' required.", 6000);
+        myMessage.myMessage('message','error', "'email' required.", gTimeErrorGeneric);
     }
 });
 $('#button-get-account').click(function() {
@@ -43,10 +43,39 @@ $('#button-signup').click(function() {
     if ($('#email').val() && $('#password').val()) {
         //app.signup();
         // changed to stand-alone module on 2015-12-07
-        signup();
+        // moved UI scrape to here on 2016-03-15
+        var okGetUU = $('#uuid').is(":checked");
+        var okGetMM = $('#makemodel').is(":checked");
+
+        gUserData.email     = $('#email').val();
+        gUserData.password  = $('#password').val();
+        gUserData.name      = $('#name').val();
+        gUserData.phone     = $('#phone').val();
+        //
+        gDeviceData.uuid      = false;
+        gDeviceData.makemodel = false;
+        gDeviceData.cordova   = false;
+        gDeviceData.platform  = false;
+        // get device info only if we are using Cordova/Phonegap.
+        if (gIsCordova == true) {
+            gDeviceData.uuid      = (okGetUU) ? device.uuid : false;
+            gDeviceData.makemodel = (okGetMM) ? device.model : false;
+            gDeviceData.cordova   = device.cordova;
+            gDeviceData.platform  = device.platform + ";" + device.version;
+        } else {
+            gDeviceData.uuid      = (okGetUU) ? 'fake.uuid' : false;
+            gDeviceData.makemodel = (okGetMM) ? 'fake.model' : false;
+            gDeviceData.cordova   = "Cordova fake-5.2.0";
+            gDeviceData.platform  = "LG Fake ; Android 5.1.0";
+        }
+        credentials = {"email": gUserData.email, "password": gUserData.password};
+        simple.remove(gUserData, ['password']);
+        //
+        // SIGNUP
+        signup(credentials, gUserData, gDeviceData);
     } else {
         console.log("No email/password - email given:" + $('#email').val());
         // give user feedback, we require email and password
-        myMessage.myMessage('message','error', "'email' and 'password' required.", 8000);
+        myMessage.myMessage('message','error', "'email' and 'password' required.", gTimeErrorGeneric);
     }
 });

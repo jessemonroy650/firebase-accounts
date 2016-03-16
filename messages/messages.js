@@ -2,6 +2,7 @@
 	Inline Message (non-popup)
 	Date: 2014-11-17
 
+    2016-03-15 - replace `innerHTML` with `textContent`
 	2015-10-15 - rewrite of original
 
 */
@@ -29,7 +30,7 @@ var myMessage = {
         // if the message is blank, then the default message is displayed.
 		if (message !== undefined) {
 			this.Toggle(mId, mClass);
-			thing.innerHTML = message;
+			thing.textContent = message;
 		}
 		if (timeout) {
 			if (timeout > 0) {
@@ -40,6 +41,7 @@ var myMessage = {
 	//	* This object just toggles the object between visible and invisible.
 	Toggle : function (mId, mClass, mMessage) {
         console.info("toggle:"+mId);
+        var thing = {};
 		if ( mId ) {
             theId = mId;
         } else if (myMessage.GrowlId) {
@@ -57,7 +59,7 @@ var myMessage = {
             // Make 'visible'
 			if ( thing.classList.contains('hidden') === true ) {
                 if (mMessage) {
-                   thing.innerHTML = mMessage;
+                   thing.textContent = mMessage;
                 }
 				// NOTE: The class assignment below, only changes colors.
 				if (mClass) {

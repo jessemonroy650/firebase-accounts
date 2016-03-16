@@ -1,9 +1,7 @@
 //
 //    Read Data
 //
-//var readData = function (dataRef, callback, err) {
 account.readData = function (dataRef, callback, err) {
-
     if (dataRef) {
         dataRef.once('value', function(datasnapshot) {
             var val = datasnapshot.hasChildren();
@@ -14,6 +12,7 @@ account.readData = function (dataRef, callback, err) {
                 }
                 console.log("readData has children/data." + JSON.stringify(datasnapshot.val()));
             } else {
+                err("readData found no Data.");
                 console.log("readData found no Data.");
             }
         });
@@ -24,9 +23,7 @@ account.readData = function (dataRef, callback, err) {
 //
 //    Write some actual data
 //
-//var writeData = function (dataRef, data, callback, callerr) {
 account.writeData = function (dataRef, data, callback, callerr) {
-
     if (dataRef) {
         dataRef.set(data, function(e) {
             if (e) {
@@ -42,9 +39,7 @@ account.writeData = function (dataRef, data, callback, callerr) {
 //
 //    Write some actual data
 //
-//var updateData = function (dataRef, data, callback, callerr) {
 account.updateData = function (dataRef, data, callback, callerr) {
-
     if (dataRef) {
         dataRef.update(data, function(e) {
             if (e) {

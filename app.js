@@ -2,16 +2,6 @@
     Main App
     Date: 2015-11-29
 */
-var gUserFbId       = ""; // This is the UID assigned by firebase.
-                          // It is updated after every Auth event.
-var gUserData       = {"email": undefined,"name": undefined,"phone": undefined};
-var gDeviceData     = {"uuid": undefined,"makemodel": undefined,"cordova": undefined,"platform":undefined};
-var gUserDataRef    = null;    // Only used with signup.js
-var gUserDeviceRef  = null;    // Only used with signup.js
-
-var gCloudConnected = null;    // State change handled by events.js
-var gLoggedIn       = null;    // State change handled by events.js
-
 
 var app = {
     initialize : function (device) {
@@ -31,11 +21,10 @@ var app = {
                 // payload.uid payload.provider payload.auth payload.expires
                 console.log('Login successfully with payload:', JSON.stringify(payload));
                 //console.log('payload.expires:', myDate.makeISO(new Date(payload.expires)));
-
-                myMessage.myMessage('message','success', "You are now logged in.", 6000);
+                myMessage.myMessage('message','success', "You are now logged in.", gTimeSuccessGeneric);
             },
             function (error) { // error
-                myMessage.myMessage('message','error', error, 8000);
+                myMessage.myMessage('message','error', error, gTimeErrorGeneric);
             });
     },
 
@@ -59,7 +48,7 @@ var app = {
                     $('#gs-phone').val(snapshot.phone);
                 },
                 function (error) { // error
-                    myMessage.myMessage('message','error', error, 8000);
+                    myMessage.myMessage('message','error', error, gTimeErrorGeneric);
                 });
         }
     },
@@ -75,10 +64,10 @@ var app = {
         if ((gCloudConnected) && (gLoggedIn) && (userDataRef)) {
             account.updateAccount(userDataRef, gUserData,
                 function () { // success
-                    myMessage.myMessage('message','success', "Your data updated.", 6000);                
+                    myMessage.myMessage('message','success', "Your data updated.", gTimeSuccessGeneric);                
                 },
                 function (error) { // error
-                    myMessage.myMessage('message','error', error, 8000);
+                    myMessage.myMessage('message','error', error, gTimeErrorGeneric);
                 });
         }
     },
@@ -88,10 +77,10 @@ var app = {
         gCredentials.email    = email;
         account.resetPassword(gCredentials,
             function (data) { // success
-                myMessage.myMessage('message','success', "Your account is being reset.", 6000);
+                myMessage.myMessage('message','success', "Your account is being reset.", gTimeSuccessGeneric);
             },
             function (error) { // error
-                myMessage.myMessage('message','error', error, 8000);
+                myMessage.myMessage('message','error', error, gTimeErrorGeneric);
             });
     }
 }
